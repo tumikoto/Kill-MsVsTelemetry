@@ -9,23 +9,47 @@ $vs_regkey_feedback = $vs_regkey_policy + "\Feedback"
 $vs_regkey_sqm = $vs_regkey_policy + "\SQM"
 $vs_regkey_telem = "HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\Telemetry"
 
+
 reg add $vs_regkey_feedback /v DisableFeedbackDialog /t REG_DWORD /d 1 /f
 reg add $vs_regkey_feedback /v DisableEmailInput /t REG_DWORD /d 1 /f
 reg add $vs_regkey_feedback /v DisableScreenshotCapture /t REG_DWORD /d 1 /f
 reg add $vs_regkey_sqm /v OptIn /t REG_DWORD /d 0 /f
 reg add $vs_regkey_telem /v TurnOffSwitch /t REG_DWORD /d 1 /f
 
-rmdir /s /q $env:appdata + "\vstelemetry" 2>nul
-rmdir /s /q $env:LocalAppData + "\Microsoft\VSApplicationInsights" 2>nul
-rmdir /s /q $env:ProgramData + "\Microsoft\VSApplicationInsights" 2>nul
-rmdir /s /q $env:Temp + "\Microsoft\VSApplicationInsights" 2>nul
-rmdir /s /q $env:Temp + "\VSFaultInfo" 2>nul
-rmdir /s /q $env:Temp + "\VSFeedbackIntelliCodeLogs" 2>nul
-rmdir /s /q $env:Temp + "\VSFeedbackPerfWatsonData" 2>nul
-rmdir /s /q $env:Temp + "\VSFeedbackVSRTCLogs" 2>nul
-rmdir /s /q $env:Temp + "\VSRemoteControl" 2>nul
-rmdir /s /q $env:Temp + "\VSTelem" 2>nul
-rmdir /s /q $env:Temp + "\VSTelem.Out" 2>nul
+
+if (test-path ($env:appdata + "\vstelemetry")) {
+remove-item -path ($env:appdata + "\vstelemetry") -force -recurse | out-null
+}
+if (test-path ($env:LocalAppData + "\Microsoft\VSApplicationInsights")) {
+remove-item -path ($env:LocalAppData + "\Microsoft\VSApplicationInsights") -force -recurse | out-null
+}
+if (test-path ($env:ProgramData + "\Microsoft\VSApplicationInsights")) {
+remove-item -path ($env:ProgramData + "\Microsoft\VSApplicationInsights") -force -recurse | out-null
+}
+if (test-path ($env:Temp + "\Microsoft\VSApplicationInsights")) {
+remove-item -path ($env:Temp + "\Microsoft\VSApplicationInsights") -force -recurse | out-null
+}
+if (test-path ($env:Temp + "\VSFaultInfo")) {
+remove-item -path ($env:Temp + "\VSFaultInfo") -force -recurse | out-null
+}
+if (test-path ($env:Temp + "\VSFeedbackIntelliCodeLogs")) {
+remove-item -path ($env:Temp + "\VSFeedbackIntelliCodeLogs") -force -recurse | out-null
+}
+if (test-path ($env:Temp + "\VSFeedbackPerfWatsonData")) {
+remove-item -path ($env:Temp + "\VSFeedbackPerfWatsonData") -force -recurse | out-null
+}
+if (test-path ($env:Temp + "\VSFeedbackVSRTCLogs")) {
+remove-item -path ($env:Temp + "\VSFeedbackVSRTCLogs") -force -recurse | out-null
+}
+if (test-path ($env:Temp + "\VSRemoteControl")) {
+remove-item -path ($env:Temp + "\VSRemoteControl") -force -recurse | out-null
+}
+if (test-path ($env:Temp + "\VSTelem")) {
+remove-item -path ($env:Temp + "\VSTelem") -force -recurse | out-null
+}
+if (test-path ($env:Temp + "\VSTelem.Out")) {
+remove-item -path ($env:Temp + "\VSTelem.Out") -force -recurse | out-null
+}
 
 $hosts_content = @"
 
